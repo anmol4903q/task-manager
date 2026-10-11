@@ -1,3 +1,4 @@
+const API_URL = "https://taskmanager-w4k1.onrender.com";
 const list = document.getElementById("list");
 const input = document.getElementById("title");
 
@@ -20,7 +21,10 @@ function render(tasks) {
 }
 
 async function call(method, url, body) {
-  const res = await fetch(url, { method, body });
+  const res = await fetch(`${API_URL}${url}`, {
+    method,
+    body
+  });
   render(await res.json());
 }
 
@@ -31,5 +35,6 @@ document.getElementById("add").onclick = () => {
   input.value = "";
 };
 input.addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("add").click(); });
-
-fetch("/api/tasks").then(r => r.json()).then(render);
+fetch(`${API_URL}/api/tasks`)
+  .then(r => r.json())
+  .then(render);
