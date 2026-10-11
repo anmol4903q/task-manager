@@ -2,23 +2,39 @@ const API_URL = "https://task-manager-xywm.onrender.com";
 const list = document.getElementById("list");
 const input = document.getElementById("title");
 
+
 function render(tasks) {
   list.innerHTML = "";
+
   tasks.forEach(t => {
     const li = document.createElement("li");
     if (t.done) li.className = "done";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = t.done;
+    checkbox.style.flex = "0 0 auto";
+    checkbox.setAttribute("aria-label", `Complete ${t.title}`);
+
+    checkbox.onchange = () =>
+      call("POST", `/api/tasks/${t.id}/toggle`);
+
     const span = document.createElement("span");
-    span.textContent = t.title;           // textContent = safe from HTML injection
-    span.onclick = () => call("POST", `/api/tasks/${t.id}/toggle`);
+    span.textContent = t.title;
+
     const del = document.createElement("button");
     del.textContent = "X";
     del.onclick = () => call("DELETE", `/api/tasks/${t.id}`);
-    li.append(span, del);
+
+    li.append(checkbox, span, del);
     list.appendChild(li);
   });
+
   const left = tasks.filter(t => !t.done).length;
-  document.getElementById("count").textContent = `${left} task(s) left`;
+  document.getElementById("count").textContent =
+    `${left} task(s) left`;
 }
+
 
 async function call(method, url, body) {
   const res = await fetch(`${API_URL}${url}`, {
