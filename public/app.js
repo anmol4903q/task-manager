@@ -1,4 +1,4 @@
-const API_URL = "https://taskmanager-w4k1.onrender.com";
+const API_URL = "https://task-manager-xywm.onrender.com";
 const list = document.getElementById("list");
 const input = document.getElementById("title");
 
