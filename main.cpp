@@ -60,6 +60,15 @@ string toJson() {
 int main() {
     load();
     httplib::Server svr;
+    svr.set_default_headers({
+    {"Access-Control-Allow-Origin", "https://anmol4903q.github.io"},
+    {"Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS"},
+    {"Access-Control-Allow-Headers", "Content-Type"}
+});
+
+svr.Options(R"(/.*)", [](const httplib::Request&, httplib::Response& res) {
+    res.status = 204;
+});
     svr.set_mount_point("/", "./public");  // serves index.html
 
     svr.Get("/api/tasks", [](const httplib::Request&, httplib::Response& res) {
