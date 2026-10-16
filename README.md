@@ -7,4 +7,6 @@ Split:
 - Person A (backend): main.cpp  - routes, storage
 - Person B (frontend): public/  - index.html, style.css, app.js
 
-API: GET /api/tasks | POST /api/tasks (title) | POST /api/tasks/:id/toggle | DELETE /api/tasks/:id
+API: GET /api/tasks | POST /api/tasks (title) | POST /api/tasks/:id/toggle | DELETE /api/tasks/:id 
+
+.
